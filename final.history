@@ -1,0 +1,293 @@
+require(mosaic)##
+require(dplyr)##
+profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)##
+n<- nrow(profiles)##
+profiles.subset <- filter(profiles, height>=55 & height <=80)##
+require(stringr)##
+require(mosaic)##
+require(dplyr)##
+profiles <- read.csv(file="profiles.csv", header=TRUE, stringsAsFactors=FALSE)##
+n<- nrow(profiles)##
+profiles.subset <- filter(profiles, height>=55 & height <=80)##
+require(stringr)##
+#
+write.csv(subset(profiles, profiles$sex == "m"),file = 'female_profiles')##
+write.csv(subset(profiles, profiles$sex == "f"),file = 'female_profiles')##
+male_profiles <- read.csv(file="male_profiles.csv", header=TRUE, stringsAsFactors=FALSE)###
+nm<- nrow(male_profiles)##
+write.csv(subset(male_profiles.csv, profiles$sexuality == "gay"),file = 'gay_male_profiles')##
+write.csv(subset(male_profiles, profiles$sexuality == "gay"),file = 'gay_male_profiles')##
+write.csv(subset(male_profiles, male_profiles$sexuality == "gay"),file = 'gay_male_profiles')##
+write.csv(subset(male_profiles, male_profiles$orientation == "gay"),file = 'gay_male_profiles')##
+female_profiles <- read.csv(file="female_profiles.csv", header=TRUE, stringsAsFactors=FALSE)###
+nf<- nrow(female_profiles)##
+write.csv(subset(female_profiles, female_profiles$orientation == "gay"),file = 'gay_female_profiles')##
+write.csv(subset(male_profiles, male_profiles$sexuality == "straight"),file = 'straight_male_profiles')##
+write.csv(subset(male_profiles, male_profiles$orientation == "straight"),file = 'straight_male_profiles')##
+write.csv(subset(female_profiles, female_profiles$orientation == "straight"),file = 'straight_female_profiles')##
+write.csv(subset(female_profiles, female_profiles$orientation == "bisexual"),file = 'bisexual_female_profiles')##
+write.csv(subset(male_profiles, male_profiles$orientation == "bisexual"),file = 'bisexual_male_profiles')#
+ethnicity <- select(profiles, starts_with("ethnicity"))###
+ethnicity <- apply(ethnicity, MARGIN=1, FUN=paste, collapse=" ")#
+profiles$has.white <- str_detect(ethnicity,"white")#
+profiles$has.socially <- str_detect(drinks,"socially")#
+drinks <- select(profiles, starts_with("drinks"))###
+drinks <- apply(drinks, MARGIN=1, FUN=paste, collapse=" ")#
+profiles$has.socially <- str_detect(drinks,"socially")#
+tally(has.socially ~ ethnicity,profiles,format = 'proportion')#
+profiles$has.black <- str_detect(ethnicity,"black")##
+profiles$has.hispanic <- str_detect(ethnicity,"hispanic")##
+profiles$has.asian <- str_detect(ethnicity,"asian")##
+profiles$has.native_american <- str_detect(ethnicity,"native american")##
+profiles$has.indian <- str_detect(ethnicity,"indian")##
+profiles$has.pacific_islander <- str_detect(ethnicity,"pacific islander")##
+profiles$has.other <- str_detect(ethnicity,"other")##
+profiles$has.middle_eastern <- str_detect(ethnicity,"middle eastern")##
+profiles$has.latin <- str_detect(ethnicity,"latin")#
+tally(has.white,profiles,format = 'proportion')##
+tally(~has.white,profiles,format = 'proportion')##
+tally(~has.black,profiles,format = 'proportion')##
+tally(~has.hispanic,profiles,format = 'proportion')##
+tally(~has.asian,profiles,format = 'proportion')##
+tally(~has.native_american,profiles,format = 'proportion')##
+tally(~has.indian,profiles,format = 'proportion')##
+tally(~has.pacific_islander,profiles,format = 'proportion')##
+tally(~has.other,profiles,format = 'proportion')##
+tally(~has.middle_eastern,profiles,format = 'proportion')##
+tally(~has.latin,profiles,format = 'proportion')#
+body_type <- select(p1rofiles, starts_with("body_type"))##
+body_type <- apply(body_type, MARGIN=1, FUN=paste, collapse=" ")#
+body_type <- select(profiles, starts_with("body_type"))##
+body_type <- apply(body_type, MARGIN=1, FUN=paste, collapse=" ")#
+body_type <- str_replace_all(body_type, " ", "_")#
+diet <- select(profiles, starts_with("diet"))##
+diet <- apply(diet, MARGIN=1, FUN=paste, collapse=" ")#
+diet <- str_replace_all(diet, " ", "_")#
+profiles$has.mostly <- str_detect(diet,"mostly")#
+tally(has.mostly,profiles,format = 'proportion')#
+tally(has.mostly,profiles,format = 'proportion')#
+profiles$has.mostly <- str_detect(diet,"mostly")#
+tally(has.mostly,profiles,format = 'proportion')#
+profiles$has.mostly <- str_detect(diet,"mostly_anything")#
+tally(has.mostly,profiles,format = 'proportion')#
+tally(~has.mostly,profiles,format = 'proportion')#
+profiles$has.mostly <- str_detect(diet,"mostly")#
+tally(~has.mostly,profiles,format = 'proportion')#
+profiles$has.mostly <- str_detect(diet,"anything")#
+tally(~has.mostly,profiles,format = 'proportion')#
+tally(body_type ~ diet, data=profiles, format='proportion')#
+tally(body_type ~ has.anything, data=profiles, format='proportion')#
+profiles$has.anything <- str_detect(diet,"anything")#
+tally(~has.anything,profiles,format = 'proportion')#
+tally(body_type ~ has.anything, data=profiles, format='proportion')#
+mosaicplot(body_type.by.has.anything, main="Body Type vs Has Anything", las=1)#
+body_type.by.has.anything <- tally(~body_type + has.anything, data=profiles)#
+mosaicplot(body_type.by.has.anything, main="Body Type vs Has Anything", las=1)#
+profiles$has.vegetarian <- str_detect(diet,"vegetarian")#
+body_type.by.has.vegetarian <- tally(~body_type + has.vegetarian, data=profiles)#
+mosaicplot(body_type.by.has.vegetarian, main="Body Type vs Has Vegetarian", las=1)#
+profiles$has.other <- str_detect(diet,"other")#
+tally(~body_type + has.other, data=profiles)#
+tally(~body_type + has.vegetarian, data=profiles)#
+body_type.by.has.other <- tally(~body_type + has.other, data=profiles)#
+mosaicplot(body_type.by.has.other, main="Body Type vs Has Other", las=1)#
+profiles$has.halal <- str_detect(diet,"halal")#
+body_type.by.has.halal <- tally(~body_type + has.halal, data=profiles)#
+tally(~body_type + has.halal, data=profiles)#
+mosaicplot(body_type.by.has.other, main="Body Type vs Has Other", las=1)#
+mosaicplot(body_type.by.has.halal, main="Body Type vs Has Halal", las=1)#
+profiles$has.kosher <- str_detect(diet,"kosher")#
+body_type.by.has.kosher <- tally(~body_type + has.kosher, data=profiles)#
+mosaicplot(body_type.by.has.kosher, main="Body Type vs Has Kosher", las=1)#
+tally(~body_type + has.kosher, data=profiles)#
+profiles$has.vegan <- str_detect(diet,"vegan")#
+body_type.by.has.vegan <- tally(~body_type + has.vegan, data=profiles)#
+mosaicplot(body_type.by.has.vegan, main="Body Type vs Has Vegan", las=1)#
+profiles$has.18-28 <- str_detect(age,"18")#
+age <- select(profiles, starts_with("age"))##
+age <- apply(age, MARGIN=1, FUN=paste, collapse=" ")#
+age#
+histogram(~age | sex, width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)#
+(~age | sex, data=profiles.subset)tally#
+tally(~age | sex, data=profiles.subset)#
+histogram(~age | sex, width=1, layout=c(1,2), xlab="age", data=profiles.subset)#
+profiles.subset <- filter(profiles, age>=18 & age <=28)#
+profiles.subset1 <- filter(profiles, age>=18 & age <=28)#
+profiles.age_18_28 <- filter(profiles, age>=18 & age <=28)#
+profiles.age_29_38 <- filter(profiles, age>=29 & age <=38)#
+profiles.age_39_48 <- filter(profiles, age>=39 & age <=48)#
+profiles.age_49_58 <- filter(profiles, age>=49 & age <=58)#
+profiles.age_59_68 <- filter(profiles, age>=59 & age <=68)#
+profiles.age_18-28 <- filter(profiles, age>=18 & age <=28)#
+profiles.age_18_28 <- filter(profiles, age>=18 & age <=28)#
+profiles.age_29_38 <- filter(profiles, age>=29 & age <=38)#
+profiles.age_39_48 <- filter(profiles, age>=39 & age <=48)#
+profiles.age_49_58 <- filter(profiles, age>=49 & age <=58)#
+profiles.age_59_68 <- filter(profiles, age>=59 & age <=68)#
+age_18_28 <- select(profiles.age_18_28, starts_with("age"))##
+age <- apply(age, MARGIN=1, FUN=paste, collapse=" ")#
+age_18_28 <- select(profiles.age_18_28, starts_with("age"))##
+age_18_28 <- apply(age_18_28, MARGIN=1, FUN=paste, collapse=" ")#
+sign <- select(profiles.sign, starts_with("sign"))##
+sign <- apply(sign, MARGIN=1, FUN=paste, collapse=" ")#
+sign <- select(profiles, starts_with("sign"))##
+sign <- apply(sign, MARGIN=1, FUN=paste, collapse=" ")#
+age_29_38 <- select(profiles.age_29_38, starts_with("age"))##
+age_29_38 <- apply(age_29_38, MARGIN=1, FUN=paste, collapse=" ")#
+age_39_48 <- select(profiles.age_39_48, starts_with("age"))##
+age_39_48 <- apply(age_39_48, MARGIN=1, FUN=paste, collapse=" ")#
+age_49_58 <- select(profiles.age_49_58, starts_with("age"))##
+age_49_58 <- apply(age_49_58, MARGIN=1, FUN=paste, collapse=" ")#
+age_59_68 <- select(profiles.age_59_68, starts_with("age"))##
+age_59_68 <- apply(age_59_68, MARGIN=1, FUN=paste, collapse=" ")#
+sign_18_28 <- select(profiles.age_18_28, starts_with("sign"))##
+sign_18_28 <- apply(sign_18_28, MARGIN=1, FUN=paste, collapse=" ")#
+sign_29_38 <- select(profiles.age_29_38, starts_with("sign"))##
+sign_29_38 <- apply(sign_29_38, MARGIN=1, FUN=paste, collapse=" ")#
+sign_39_48 <- select(profiles.age_39_48, starts_with("sign"))##
+sign_39_48 <- apply(sign_39_48, MARGIN=1, FUN=paste, collapse=" ")#
+sign_49_58 <- select(profiles.age_49_58, starts_with("sign"))##
+sign_49_58 <- apply(sign_49_58, MARGIN=1, FUN=paste, collapse=" ")#
+sign_59_68 <- select(profiles.age_59_68, starts_with("sign"))##
+sign_59_68 <- apply(sign_59_68, MARGIN=1, FUN=paste, collapse=" ")#
+tally(~sign_18_28, data=profiles.age_18_28)#
+profiles.age_18_28$has.matters_a_lot <- str_detect(sign_18_28,"matters")#
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age_18_28)##
+tally(~body_type + has.halal, data=profiles)#
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age_18_28)##
+tally(~age + has.matters_a_lot, data=profiles.age_18_28)#
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age_18_28)##
+tally(~has.matters_a_lot + age, data=profiles.age_18_28)#
+profiles.age_18_28$has.doesn't_matter <- str_detect(sign_18_28,"but")#
+''#
+profiles.age_18_28$has.does_not_matter <- str_detect(sign_18_28,"but")#
+age.by.has.does_not_matter <- tally(~age + has.does_not_matter, data=profiles.age_18_28)##
+tally(~body_type + has.halal, data=profiles)#
+age.by.has.does_not_matter <- tally(~age + has.does_not_matter, data=profiles.age_18_28)##
+tally(~age + has.does_not_matter, data=profiles.age_18_28)#
+profiles.age_18_28$has.it_is_fun_to_think_about <- str_detect(sign_18_28,"fun")#
+age.by.has.it_is_fun_to_think_about <- tally(~age + has.it_is_fun_to_think_about, data=profiles.age_18_28)##
+tally(~age + has.does_not_matter, data=profiles.age_18_28)#
+age.by.has.it_is_fun_to_think_about <- tally(~age + has.it_is_fun_to_think_about, data=profiles.age_18_28)##
+tally(~age + has.it_is_fun_to_think_about, data=profiles.age_18_28)
+age.by.has.it_is_fun_to_think_about <- tally(~age + has.it_is_fun_to_think_about, data=profiles.age_18_28) tally(~age + has.it_is_fun_to_think_about, data=profiles.age_18_28)
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age_29_38)#
+> ##
+> tally(~age + has.matters_a_lot, data=profiles.age_29_38)
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age_29_38)#
+tally(~age + has.matters_a_lot, data=profiles.age_29_38)
+profiles.age_29_38$has.matters_a_lot <- str_detect(sign_29_38,"matters")#
+> age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age_29_38)
+profiles.age_29_38$has.matters_a_lot <- str_detect(sign_29_38,"matters")#
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age_29_38)
+tally(~age + has.matters_a_lot, data=profiles.age_29_38)
+profiles.age_29_38$has.does_not_matter <- str_detect(sign_18_28,"but")#
+age.by.has.does_not_matter <- tally(~age + has.does_not_matter, data=profiles.age_29_38)
+profiles.age_29_38$has.does_not_matter <- str_detect(sign_29_38,"but")#
+age.by.has.does_not_matter <- tally(~age + has.does_not_matter, data=profiles.age_29_38)
+tally(~age + has.does_not_matter, data=profiles.age_29_38)
+profiles.age_29_38$has.it_is_fun_to_think_about <- str_detect(sign_29_38,"fun")#
+age.by.has.it_is_fun_to_think_about <- tally(~age + has.it_is_fun_to_think_about, data=profiles.age_29_38)
+tally(~age + has.it_is_fun_to_think_about, data=profiles.age_29_38)
+profiles.age$has.matters_a_lot <- str_detect(sign,"matters")#
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles.age)
+profiles$has.matters_a_lot <- str_detect(sign,"matters")#
+age.by.has.matter_a_lot <- tally(~age + has.matters_a_lot, data=profiles)
+tally(~age + has.matters_a_lot, data=profiles)
+profiles$has.does_not_matter <- str_detect(sign,"but")#
+age.by.has.does_not_matter <- tally(~age + has.does_not_matter, data=profiles)
+tally(~age + has.does_not_matter, data=profiles)
+profiles$has.it_is_fun_to_think_about <- str_detect(sign,"fun")#
+age.by.has.it_is_fun_to_think_about <- tally(~age + has.it_is_fun_to_think_about, data=profiles)
+tally(~age + has.it_is_fun_to_think_about, data=profiles)
+religion <- select(profiles, starts_with("religion"))##
+religion <- apply(sign, MARGIN=1, FUN=paste, collapse=" ")
+religion <- select(profiles, starts_with("religion")#
+religion <- apply(sign, MARGIN=1, FUN=paste, collapse=" ")
+religion <- select(profiles, starts_with("religion"))#
+religion <- apply(sign, MARGIN=1, FUN=paste, collapse=" ")
+religion <- select(profiles, starts_with("religion"))#
+religion <- apply(religion, MARGIN=1, FUN=paste, collapse=" ")
+religioin
+religion
+tally(~religion, data=profiles)
+tally(~religion, data=profiles)
+religion1 <- select(profiles, starts_with("religion"))#
+religion1 <- apply(religion1, MARGIN=1, FUN=paste, collapse=" ")
+religion1 <- str_replace_all(religion1, "and laughing about it", "")#
+religion1 <- str_replace_all(religion1, "and somewhat serious about it", "")
+religion1 <- str_replace_all(religion1, "and very serious about it", "")#
+religion1 <- str_replace_all(religion1, "but not too serious about it", "")
+religion1
+tally(~religion1, data=profiles)
+tally(~religion1, data=profiles)
+religion1 <- str_replace_all(religion1, " ", "")
+tally(~religion1, data=profiles)
+tally(~age + religion1, data=profiles)
+tally(~age + religion1, data=profiles)
+tally(~religion, data=profiles)
+religion2 <- select(profiles, starts_with("religion"))#
+religion2 <- apply(religion2, MARGIN=1, FUN=paste, collapse=" ")
+religion1 <- str_replace_all(religion1, "agnosticism", "abcd")#
+religion1 <- str_replace_all(religion1, "atheism", "abcd")
+religion1 <- str_replace_all(religion1, "buddhism", "abcd")#
+religion1 <- str_replace_all(religion1, "catholicism", "abcd")
+religion2 <- str_replace_all(religion1, "buddhism", "abcd")#
+religion2 <- str_replace_all(religion2, "catholicism", "abcd")
+religion2 <- str_replace_all(religion1, "agnosticism", "abcd")#
+religion2 <- str_replace_all(religion1, "atheism", "abcd")
+religion2 <- str_replace_all(religion2, "agnosticism", "abcd")#
+religion2 <- str_replace_all(religion2, "atheism", "abcd")
+religion2 <- str_replace_all(religion2, "christianity", "abcd")#
+religion2 <- str_replace_all(religion2, "hinduism", "abcd")
+religion2 <- str_replace_all(religion2, "islam", "abcd")#
+religion2 <- str_replace_all(religion2, "judaism", "abcd")
+religion2 <- str_replace_all(religion2, "other", "abcd")
+tally(~religion2, data=profiles)
+religion2 <- select(profiles, starts_with("religion"))#
+religion2 <- apply(religion2, MARGIN=1, FUN=paste, collapse=" ")
+tally(~religion2, data=profiles)
+religion2 <- str_replace_all(religion2, "agnosticism", "abcd")#
+religion2 <- str_replace_all(religion2, "atheism", "abcd")
+religion2 <- str_replace_all(religion2, "christianity", "abcd")#
+religion2 <- str_replace_all(religion2, "hinduism", "abcd")
+religion2 <- str_replace_all(religion2, "islam", "abcd")#
+religion2 <- str_replace_all(religion2, "judaism", "abcd")
+religion2 <- str_replace_all(religion2, "other", "abcd")
+tally(~religion2, data=profiles)
+religion2 <- str_replace_all(religion2, "catholicism", "abcd")#
+religion2 <- str_replace_all(religion2, "buddhism", "abcd")
+tally(~religion2, data=profiles)
+tally(~age + religion2, data=profiles)
+location <- select(profiles, starts_with("location"))#
+location <- apply(location, MARGIN=1, FUN=paste, collapse=" ")
+tally(~location, data=profiles)
+histogram(~location, width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+histogram(~location, width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+histogram(~tally(~location, data=profiles), width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+histogram(~tally(~location, data=profiles), width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+histogram(~tally(~location, data=profiles,format='proportion'), width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+histogram(tally(~location, data=profiles,format='proportion'), width=1, layout=c(1,2), xlab="Height in inches", data=profiles.subset)
+tally(~location, data=profiles,format='proportion')
+histogram(~age | sex, width=1, layout=c(1,2), xlab="age", data=profiles.subset)
+histogram(~age | sex, width=1, layout=c(1,2), xlab="age", data=profiles)
+age <- select(profiles, starts_with("age"))#
+age <- apply(age, MARGIN=1, FUN=paste, collapse=" ")
+sex <- select(profiles, starts_with("sex"))#
+sex <- apply(sex, MARGIN=1, FUN=paste, collapse=" ")
+sex <- str_replace_all(sex, "m", "Male")#
+sex <- str_replace_all(sex, "f", "Female")
+histogram(~age | sex, width=1, layout=c(1,2), xlab="age", data=profiles)
+sex1 <- select(profiles, starts_with("sex"))#
+sex1 <- apply(sex1, MARGIN=1, FUN=paste, collapse=" ")
+sex1 <- str_replace_all(sex1, "m", "Male")#
+sex1 <- str_replace_all(sex1, "f", "Female")
+histogram(~age | sex1, width=1, layout=c(1,2), xlab="age", data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2), xlab="Age",ylab="Proportion" data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2), xlab="Age",ylab="Proportion", data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2),title="a" xlab="Age",ylab="Proportion", data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2),title="a", xlab="Age",ylab="Proportion", data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2),title="a", xlab="Age",ylab="Proportion", data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2),heading="a", xlab="Age",ylab="Proportion", data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2),main="a", xlab="Age",ylab="Proportion", data=profiles)
+histogram(~age | sex1, width=1, layout=c(1,2),main="Histograms Showing Proportion of Users' Ages For Males, and Females", xlab="Age",ylab="Proportion", data=profiles)
